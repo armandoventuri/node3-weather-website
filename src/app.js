@@ -49,17 +49,17 @@ app.get('/weather', (req, res) => {
         })
     }
 
-    geocode(req.query.address, (error, {longitude, latitude, location} = {}) => {
+    geocode(req.query.address, (error, {longitude, latitude} = {}) => {
         if (error) {
             res.send({
                 error: 'You must insert a valid location!'
             })
             return
         }
-        forecast(longitude, latitude, (error, {location, description, temperature, feelslike} = {}) => {
+        forecast(longitude, latitude, (error, {forecast, location} = {}) => {
             if (error) return
             res.send({
-                forecast: `The weather in ${location} is ${description}. The temperature is about ${temperature} degrees and it feels like ${feelslike}`,
+                forecast,
                 location
             })
         })
